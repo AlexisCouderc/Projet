@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Paris Events</title>
+	<title>Document</title>
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="assets/styles/style.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 	<script src="assets/scripts/ajax.js"></script>
 	<script src="assets/scripts/app.js"></script>
-	<script src="assets/scripts/index.js"></script>
+	<script src="assets/scripts/fav.js"></script>
 </head>
 <body>
 	<header>
@@ -24,16 +24,28 @@
 	<div class="corps">
 		<div class="site_content">
 			<div class="head">
-				<h1>Bienvenue sur le site notre site Paris Events</h1>
-				<p>Ce site vous permettra de rechercher les derniers événements sur Paris</p>
+				<h1>Événement sauvegardés</h1>
 			</div>
 
 			<div class="content">
-				<h2>Les derniers événements apparus :</h2>
-				<ul class="cards-list last-event">
-				</ul>
-				<h2>Les prochains événements :</h2>
-				<ul class="cards-list next-event">
+				<ul class="cards-list">
+					<li class="event-card">
+						<a href="index.html">
+							<div class="event-card-img">
+								<div class="ratio">
+									<img src="https://quefaire-api.paris.fr/images/59376" alt="">
+								</div>
+							</div>
+							<div class="event-content-card">
+								<h3 class="event-card-title">#Evénement Carte blanche à ROGER BIWANDU</h3>
+								<p class="event-card-date">28/11/2019 à 21:30</p>
+								<p class="event-card-chapo">4 musiciens "Baiser Salé" pour 2 concerts exceptionnels !</p>
+								<button type="button" class="followbutton" aria-label="button de follow">
+									<img src="assets/img/unfollow.svg" alt="unfollow icon">
+								</button>
+							</div>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>

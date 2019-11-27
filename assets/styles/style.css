@@ -3,17 +3,17 @@ html {
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	font-family: sans-serif;
+	font-family: 'Poppins' ,sans-serif;
 }
 
 p {
-	margin: 0;
+	margin: 0;	
 }
 
 /* variable css */
 
 :root {
-	--first-color: rgb(7, 162, 176);
+	--first-color: #07a2b0;
 	--second-color: #d9ecc7;
 }
 
@@ -24,14 +24,16 @@ header {
 	justify-content: center;
 	width: 100%;
 	background-color: var(--first-color);
+	background:#07a3b2;
 	background: linear-gradient(45deg, #07a3b2, #d9ecc7);
+	z-index: 3;
 }
 
 nav {
 	display: flex;
-	padding: 20px;
+	padding: 10px;
 	width: 100%;
-	max-width: 1170px;
+	max-width: 1080px;
 }
 
 nav ul {
@@ -48,8 +50,10 @@ nav ul li {
 nav a {
 	line-height: 1em;
 	text-decoration: none;
-	color: black;
+	color: white;
 	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 /* Fin Menu */
@@ -59,20 +63,45 @@ nav a {
 
 .corps {
 	width: 100%;
-	display: flex;
-	justify-content: center;
+	height: 100%;
+	display: block;
+	position: relative;
+	
+	/* background: content-box radial-gradient(crimson, skyblue); */
+}
+
+.banner {
+	width: 100%;
+	height: 400px;
+	overflow: hidden;
+	position: relative;
+	display: block;
+}
+
+.banner-img {
+	background: no-repeat url("https://quefaire-api.paris.fr/images/59376");
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	filter: blur(5px);
 }
 
 .site_content {
+	position: relative;
 	display: block;
-	max-width: 1170px;
+	max-width: 1080px;
 	width: 100%;
+	padding: 10px;
+	background: #fff;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .head {
 	margin-bottom: 20px;
 }
-
 
 /* Cards */
 
@@ -84,31 +113,43 @@ nav a {
 }
 
 .event-card {
-	width: 100%;
+	width: calc(50% - 10px);
 	display: block;
 	box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
 	list-style: none;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.event-card:nth-child(2n - 1) {
+	margin-right: 10px;
+}
+
+.event-card:nth-child(2n) {
+	margin-left: 10px;
 }
 
 .event-card a {
 	text-decoration: none;
 	color: black;
+	display: flex;
 }
 
 .event-card:hover {
 	box-shadow: 0 0 10px 0 rgba(7, 162, 176, 0.5);
 }
 
-.event-card-img {
+.event-card-container-img {
 	position: relative;
 	width: 200px;
-	float: left;
-	margin-right: 30px;
+	margin-right: 20px;
 }
 
-.event-card-img .ratio {
+.event-card-img {
 	padding-bottom: 100%;
 	position: relative;
+	background-position: center;
+	background-size: cover;
 }
 
 .event-card-img img {
@@ -124,11 +165,13 @@ nav a {
 .event-content-card {
 	display: block;
 	padding: 5px;
+	width: calc(100% - 200px);
+	height: 100%;
 }
 
 .event-card-title{
 	color: var(--first-color);
-	margin-bottom: 10px;
+	margin: 0 0 10px 0;
 }
 
 .event-card-date {
@@ -137,5 +180,167 @@ nav a {
 }
 
 .event-card-chapo {
-	margin-top: 20px;
+	margin-top: 15px;
+	font-size: 14px;
+}
+
+/* follow button */
+
+.followbutton {
+	background-color: var(--second-color);
+	border: none;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	width: 32px;
+	height: 32px;
+	z-index: 2;
+	padding: 2px 3px 3px 3px;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	transition-duration: 0.4s;
+	opacity: 0.7;
+}
+
+.followbutton:hover {
+	transition-duration: 0.4s;
+	opacity: 1;
+}
+
+.followbutton.unfollow {
+	background-color: var(--first-color);
+}
+
+.followbutton img {
+	width: 75%;
+}
+
+/* search bar */
+
+.form-search {
+	display: flex;
+}
+
+.search {
+	width: calc(100% - 85px);
+	padding: 5px;
+	box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
+	border-radius: 5px 0 0 5px;
+	border: 1px solid #cdcdcd;
+	border-right: none;
+}
+
+.search-valid {
+	padding: 5px 10px;
+	color: white;
+	background-color: var(--first-color);
+	border: none;
+	border-radius: 0 5px 5px 0;
+	font-weight: bold;;
+}
+
+/* Event page */
+
+.event {
+	margin-top: -300px;
+	z-index: 2;
+}
+
+.event-content {
+	width: 100%;
+	position: relative;
+	display: flex;
+}
+
+.event-column {
+	display: block;
+	position: relative;
+}
+
+.left-column {
+	padding-right: 20px;
+	width: 66.66%;
+}
+
+.right-column {
+	padding-left: 10px;
+	width: 33.33%;
+}
+
+.event-img {
+	width: 100%;
+	height: 450px;
+	background-size: cover;
+	background: no-repeat url("https://quefaire-api.paris.fr/images/59376");
+	background-position: 50%;
+	margin-bottom: 20px;
+}
+
+.event-img img{
+	display: none;
+}
+
+.event-article {
+	padding: 20px 40px;
+}
+
+.event-title {
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.event-chapo {
+	margin: 10px 0;
+	font-weight: bold;
+	font-size: 16px;
+	text-align: justify;
+}
+
+.event-desc {
+	text-align: justify;
+}
+
+.event-column .followbutton {
+	position: relative;
+	width: auto;
+	height: auto;
+	padding: 5px 10px 5px 5px;
+	border-radius: 5px;
+	align-content: space-around;
+	color: #fff;
+	font-size: 1em;
+	font-weight: bold;
+	top: 0;
+	left: 0;
+}
+
+.event-column .followbutton img {
+	width: 20px;
+	margin-right: 10px;
+}
+
+.event-column.right-column h3{
+	text-transform: uppercase;
+}
+
+.event-column.right-column p{
+	color: #5c5c5c;
+}
+
+.event-column.right-column .info p:nth-child(n+2) {
+	margin-top: 10px;
+}
+.event-column.right-column .info img {
+	width: 35px;
+	margin-right: 5px;
+}
+
+.event-column.right-column .info a {
+	text-decoration: none;
+	color: #000000;
+}
+
+.event-column.right-column .info a:hover {
+	color: var(--first-color);
 }
