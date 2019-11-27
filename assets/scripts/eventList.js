@@ -1,13 +1,20 @@
+$(document).ready(function(){
 
-
-(async function() {
-
-	$('search-valid').addEventListener('click'){
-		$('.cards-list').innerHTML = ''
-		
-		const [lastEvents] = await Promise.all([getLastEvents()]);
+	$('.form-search').submit(function(event) {
+		const search = $('.search').val()
 	
-		createEventsCards(lastEvents)
-	}
+		searchedEvent(search)
+		event.preventDefault()
+	})
+})
 
-})();
+async function searchedEvent(search) {
+
+	const [eventSearched] = await Promise.all([getSearchedEvents(search)]);
+
+
+	$('.cards-list').empty()
+
+	createEventsCards(eventSearched, "")
+
+}
