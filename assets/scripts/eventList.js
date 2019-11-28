@@ -10,7 +10,7 @@ $(function(){
 
 async function searchedEvent(search) {
 
-	const eventSearched = await Promise.all([getSearchedEvents(search)]);
+	const eventSearched = await Promise.resolve(getSearchedEvents(search));
 
 
 	$('.cards-list').empty()

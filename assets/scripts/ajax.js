@@ -2,7 +2,6 @@ async function getLast4Events(){
 	const data = await $.ajax(`https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records?rows=4`)
 
 	const events = data.records.map(record => record.record)
-	console.log(events)
 
 	return events
 }
@@ -31,7 +30,7 @@ async function getEvent(idEvent){
 
 	const data = await $.ajax(`${url}`)
 	
-	const event = data.record.fields
+	const event = data.record
 
 	return event
 }
