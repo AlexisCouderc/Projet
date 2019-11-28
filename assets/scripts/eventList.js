@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
 
 	$('.form-search').submit(function(event) {
 		const search = $('.search').val()
@@ -10,10 +10,14 @@ $(document).ready(function(){
 
 async function searchedEvent(search) {
 
-	const [eventSearched] = await Promise.all([getSearchedEvents(search)]);
+	const eventSearched = await Promise.all([getSearchedEvents(search)]);
 
 
 	$('.cards-list').empty()
+
+	if($('.empty')) {
+		$('.empty').remove()
+	}
 
 	createEventsCards(eventSearched, "")
 

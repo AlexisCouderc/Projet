@@ -10,6 +10,10 @@ p {
 	margin: 0;	
 }
 
+button:focus {
+	outline-offset: inherit;
+	outline: inherit;
+}
 /* variable css */
 
 :root {
@@ -187,7 +191,7 @@ nav a {
 /* follow button */
 
 .followbutton {
-	background-color: var(--second-color);
+	background-color: var(--first-color);
 	border: none;
 	position: absolute;
 	top: 15px;
@@ -200,16 +204,12 @@ nav a {
 	display: flex;
 	justify-content: center;
 	transition-duration: 0.4s;
-	opacity: 0.7;
+	opacity: 0.8;
 }
 
 .followbutton:hover {
 	transition-duration: 0.4s;
 	opacity: 1;
-}
-
-.followbutton.unfollow {
-	background-color: var(--first-color);
 }
 
 .followbutton img {
@@ -237,13 +237,6 @@ nav a {
 	outline: inherit;
 	box-shadow: 0 0 10px 0 rgba(7, 162, 176, 0.5);
 }
-
-.search-valid:focus {
-	outline-offset: inherit;
-	outline: inherit;
-	box-shadow: 0 0 10px 0 rgba(7, 162, 176, 0.5);
-}
-
 .search-valid {
 	padding: 5px 10px;
 	color: white;

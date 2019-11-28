@@ -1,9 +1,8 @@
 function createEventsCards(events, listName){
+
 	if(events.length > 0){
-		if($('.empty')) {
-			$('.empty').remove()
-		}
-		events.forEach(event => {
+		events.forEach(recordsEvent => {
+			const event = recordsEvent.fields
 			const date = new Date(event.date_start)
 			let chapo = event.lead_text
 			if (chapo.length > 100){
@@ -18,7 +17,7 @@ function createEventsCards(events, listName){
 
 			$(listClass).append(`
 			<li id="${event.id}" class="event-card">
-				<a href="index.html">
+				<a href="event.html?${recordsEvent.id}">
 					<div class="event-card-container-img">
 						<div class="event-card-img">
 						</div>
@@ -29,17 +28,30 @@ function createEventsCards(events, listName){
 						<p class="event-card-chapo">${chapo}</p>
 					</div>
 				</a>
-				<button type="button" class="followbutton unfollow" aria-label="button de follow">
-					<img src="assets/img/unfollow.svg" alt="Follow icon">
-				</button>
-			</li>`);
+			</li>`)
+
+			if(isFav(event)){
+				$("#" + event.id).append(`
+					<button type="button" class="followbutton" aria-label="button de follow">
+						<img src="assets/img/follow.svg" alt="Follow icon">
+					</button>
+				`)
+			} else {
+				$("#" + event.id).append(`
+					<button type="button" class="followbutton" aria-label="button de follow">
+						<img src="assets/img/unfollow.svg" alt="Follow icon">
+					</button>
+				`)
+			}
+
 			$("#" + event.id + " .event-card-img").css("background-image", "url(" + event.cover_url + ")")
+
+			$("#" + event.id + " .followbutton").click(() => {
+				actionFav(event)
+			})
 		})
 	} else {
-		console.log($('.empty'))
-		if($('.empty') === undefined) {
-			$('.content').append('<p class="empty">Il n\'y a aucun événement pour cette recherche </p>')
-		}
+		$('.content').append('<p class="empty">Il n\'y a aucun événement pour cette recherche </p>')
 	}
 }
 
@@ -54,4 +66,35 @@ function formatDate(date) {
 	const hour = pad(date.getHours())
 	const min = pad(date.getMinutes())
 	return day + '/' + month + '/' + year + ' à ' + hour + ':' + min
+}
+
+function actionFav(event){
+	if(isFav(event)){
+		removeFav(event)
+	 } else {
+		addFav(event) 
+	 } 
+}
+
+function isFav(event){
+	return this.parseEvent().find(storEvent => storEvent.id === event.id)
+}
+
+function addFav(event) {
+	const eventStored = this.parseEvent()
+	eventStored.push(event)
+	window.localStorage.setItem("favEvents", JSON.stringify(eventStored))
+	$("#" + event.id + " .followbutton img").attr('src', 'assets/img/follow.svg')
+}
+
+function removeFav(event) {
+	const eventStored = this.parseEvent()
+	const eventToRemove = eventStored.findIndex(storEvent => storEvent.id === event.id)
+	eventStored.splice(eventToRemove, 1)
+	window.localStorage.setItem("favEvents", JSON.stringify(eventStored))
+	$("#" + event.id + " .followbutton img").attr('src','assets/img/unfollow.svg')
+}
+
+function parseEvent() {
+	return JSON.parse(localStorage.getItem("favEvents")) || []
 }
