@@ -4,38 +4,41 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="assets/styles/style.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="assets/scripts/ajax.js"></script>
-	<script src="assets/scripts/app.js"></script>
-	<script src="assets/scripts/fav.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header>
 		<nav>
-				<img src="assets/img/logo.png" alt="">
-				<ul>
-					<li><a href="index.html">Accueil</a></li>
-					<li><a href="eventList.html">Liste d'événements</a></li>
-					<li><a href="fav.html">Favoris</a></li>
-				</ul>
-			</nav>
+			<div class="burger-wrapper">
+				<button type="button" class="burger-menu" aria-label="Button burger menu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+			<img src="assets/img/logo.png" alt="">
+			<ul>
+				<li><a href="index.html">Accueil</a></li>
+				<li><a href="eventList.html">Liste d'événements</a></li>
+				<li><a href="fav.html">Favoris</a></li>
+			</ul>
+		</nav>
 	</header>
 	<div class="corps">
 		<div class="site_content">
 			<div class="head">
-				<h1>Événement sauvegardés</h1>
+				<h1>Événements sauvegardés</h1>
 			</div>
-
 			<div class="content">
 				<ul class="cards-list">
-					
 				</ul>
 			</div>
 		</div>
 	</div>
-
-
+	<script src="assets/scripts/ajax.js"></script>
+	<script src="assets/scripts/app.js"></script>
+	<script src="assets/scripts/fav.js"></script>
 </body>
 </html>

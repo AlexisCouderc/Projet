@@ -11,8 +11,8 @@ p {
 }
 
 button:focus {
-	outline-offset: inherit;
 	outline: inherit;
+	outline-offset: inherit;
 }
 /* variable css */
 
@@ -36,8 +36,9 @@ header {
 nav {
 	display: flex;
 	padding: 0 10px;
-	width: 100%;
+	width: calc(100% - 20px);
 	max-width: 1080px;
+	z-index: 4;
 }
 
 nav img {
@@ -72,21 +73,124 @@ nav a {
 	padding: 0 10px;
 }
 
-nav a::before {
-	content: "";
-    width: 0;
-	height: 5px;
-	left: 50%;
-	top: 0;
-    position: absolute;
-    transition: all 0.2s linear;
-    background: var(--second-color);
+/* Burger Menu */
+
+.burger-wrapper {
+	display: flex;
+	align-items: center;
 }
 
-nav a:hover::before {
-	width: 100%;
-	left: 0;
+.burger-menu {
+	cursor: pointer;
+	z-index: 1;
+	display: none;
+	width: 32px;
+	height: 32px;
+	position: relative;
+	margin-right: 30px;
+	margin-left: 20px;
+	background: none;
+	border: none;
 }
+
+.burger-menu span {
+	display: block;
+	background-color: var(--second-color);
+	height: 2px;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -2px;
+	transform-origin: 50% 50%;
+	transition: all 0.3s ease-out 0.3s, transform 0.3s ease-in;
+}
+
+.burger-menu span:first-child {
+	top: 20%;
+}
+
+.burger-menu span:last-child {
+	top: 80%;
+}
+
+.burger-menu.show span {
+	top: 50%;
+	transition: all 0.3s ease-in, transform 0.3s ease-out 0.3s;
+}
+
+.burger-menu.show span:nth-child(2) {
+	-webkit-transform: scale(0);
+	transform: scale(0);
+}
+
+.burger-menu.show span:first-child {
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);
+}
+
+.burger-menu.show span:last-child{ 
+	-webkit-transform: rotate(-135deg);
+	transform: rotate(-135deg);
+}
+
+ul.show {
+	display: block;
+	transform: translateX(0);
+	transition: all 0.2s ease-in, transform 0.2s ease-out 0.2s;
+}
+
+@media (max-width: 767px) {
+	.burger-menu{
+		display: block;
+	}
+
+	nav ul {
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: auto;
+		height: calc(100% - 83px);
+		margin-top: 80px;
+		transform: translateX(-100%);
+		background-color: var(--first-color);
+		transition: all 0.3s ease-out 0.3s, transform 0.3s ease-in;
+		z-index: 3;
+	}
+
+	nav ul.show {
+		display: block;
+		transform: translateX(0);
+		transition: all 0.3s ease-in, transform 0.3s ease-out 0.3s;
+	}
+
+	nav ul li {
+		height: auto;
+		padding: 15px 10px;
+	}
+
+
+}
+
+@media (min-width: 768px) {
+	nav a::before {
+		content: "";
+		width: 0;
+		height: 5px;
+		left: 50%;
+		top: 0;
+		position: absolute;
+		transition: all 0.2s linear;
+		background: var(--second-color);
+	}
+
+	nav a:hover::before {
+		width: 100%;
+		left: 0;
+	}
+}
+
 /* Fin Menu */
 
 
@@ -101,38 +205,47 @@ nav a:hover::before {
 	/* background: content-box radial-gradient(crimson, skyblue); */
 }
 
-.banner {
-	width: 100%;
-	height: 400px;
-	overflow: hidden;
-	position: relative;
-	display: block;
-}
-
-.banner-img {
-	background: no-repeat url("https://quefaire-api.paris.fr/images/59376");
-	background-size: cover;
-	background-position: center center;
-	width: 100%;
-	height: 100%;
-	filter: blur(5px);
-}
-
 .site_content {
 	position: relative;
 	display: block;
 	max-width: 1080px;
-	width: 100%;
+	width: calc(100% - 20px);
 	padding: 10px;
 	background: #fff;
 	border-radius: 5px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 30px;
 }
 
 .head {
 	margin-bottom: 20px;
 }
+
+@media (max-width: 767px) {
+	.head h1 {
+		font-size: 25px;
+	}
+
+	.head p {
+		font-size: 12px;
+	}
+
+	.content h2 {
+		font-size: 18px;
+	}
+}
+
+@media (max-width: 500px) {
+	.head h1 {
+		font-size: 20px;
+	}
+	
+	.content h2 {
+		font-size: 16px;
+	}
+}
+
 
 /* Cards */
 
@@ -215,6 +328,55 @@ nav a:hover::before {
 	font-size: 14px;
 }
 
+@media (max-width: 1023px) {
+	.event-card {
+		width: 100%;
+	}
+	
+	.event-card:nth-child(2n - 1) {
+		margin-right: 0;
+	}
+
+	.event-card:nth-child(2n) {
+		margin-left: 0;
+	}
+}
+
+@media (max-width: 767px) {
+	.event-card-title {
+		font-size: 16px;
+	}
+
+	.event-card-chapo {
+		margin-top: 10px;
+	}
+}
+
+@media (max-width: 500px) {
+	.event-card a {
+		display: block;
+	}
+
+	.event-card-container-img {
+		width: 100%;
+		margin: 0;
+	}
+
+	.event-card-img {
+		padding-bottom: 60%;
+	}
+
+	.event-content-card {
+		width: calc(100% - 20px);
+		padding: 10px;
+	}
+
+	.event-card .followbutton {
+		left: inherit;
+		right: 15px;
+	}
+}
+
 /* follow button */
 
 .followbutton {
@@ -241,137 +403,4 @@ nav a:hover::before {
 
 .followbutton img {
 	width: 75%;
-}
-
-/* search bar */
-
-.form-search {
-	display: flex;
-}
-
-.search {
-	width: calc(100% - 85px);
-	padding: 5px;
-	box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
-	border-radius: 5px 0 0 5px;
-	border: 1px solid #cdcdcd;
-	font-size: 16px;
-	border-right: none;
-}
-
-.search:focus {
-	outline-offset: inherit;
-	outline: inherit;
-	box-shadow: 0 0 10px 0 rgba(7, 162, 176, 0.5);
-}
-.search-valid {
-	padding: 5px 10px;
-	color: white;
-	background-color: var(--first-color);
-	border: none;
-	border-radius: 0 5px 5px 0;
-	font-weight: bold;;
-}
-
-/* Event page */
-
-.event {
-	margin-top: -300px;
-	z-index: 2;
-}
-
-.event-content {
-	width: 100%;
-	position: relative;
-	display: flex;
-}
-
-.event-column {
-	display: block;
-	position: relative;
-}
-
-.left-column {
-	padding-right: 20px;
-	width: 66.66%;
-}
-
-.right-column {
-	padding-left: 10px;
-	padding-right: 10px;
-	width: 33.33%;
-}
-
-.event-img {
-	width: 100%;
-	height: 450px;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: 50%;
-	margin-bottom: 20px;
-}
-
-.event-article {
-	padding: 20px 40px;
-}
-
-.event-title {
-	text-align: center;
-	text-transform: uppercase;
-}
-
-.event-chapo {
-	margin: 10px 0;
-	font-weight: bold;
-	font-size: 16px;
-	text-align: justify;
-}
-
-.event-desc {
-	text-align: justify;
-}
-
-.event-column .followbutton {
-	position: relative;
-	width: auto;
-	height: auto;
-	padding: 5px 10px 5px 5px;
-	border-radius: 5px;
-	align-content: space-around;
-	color: #fff;
-	font-size: 1em;
-	font-weight: bold;
-	top: 0;
-	left: 0;
-}
-
-.event-column .followbutton img {
-	width: 20px;
-	margin-right: 10px;
-}
-
-.event-column.right-column h3{
-	text-transform: uppercase;
-}
-
-.event-column.right-column p{
-	color: #5c5c5c;
-}
-
-.event-column.right-column .info p:nth-child(n+2) {
-	margin-top: 10px;
-}
-.event-column.right-column .info img {
-	width: 35px;
-	margin-right: 5px;
-}
-
-.event-column.right-column .info a {
-	text-decoration: none;
-	color: #000000;
-	word-wrap: break-word;   
-}
-
-.event-column.right-column .info a:hover {
-	color: var(--first-color);
 }

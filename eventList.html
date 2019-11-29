@@ -4,13 +4,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="assets/styles/style.css">
-    
+	<link rel="stylesheet" href="assets/styles/eventList.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header>
 		<nav>
+			<div class="burger-wrapper">
+				<button type="button" class="burger-menu" aria-label="Button burger menu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
 			<img src="assets/img/logo.png" alt="">
 			<ul>
 				<li><a href="index.html">Accueil</a></li>
@@ -24,20 +32,14 @@
 			<div class="head">
 				<h1>Recherchez les événements qui vous intéressent</h1>
 				<form class="form-search">
-					<input type="search" class="search" placeholder="Recherche des événement...">
+					<input type="search" class="search" placeholder="Recherche des événement..." aria-label="Barre de recherche">
 					<button type="submit" class="search-valid">Rechercher</button>
 				</form> 
 			</div>
-
 			<div class="content">
-				<h2>Résultat de votre recherche :</h2>
-				<ul class="cards-list">
-					
-				</ul>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 	<script src="assets/scripts/ajax.js"></script>
 	<script src="assets/scripts/app.js"></script>
 	<script src="assets/scripts/eventList.js"></script>

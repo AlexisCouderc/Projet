@@ -4,16 +4,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 	<link rel="stylesheet" href="assets/styles/style.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="assets/scripts/ajax.js"></script>
-	<script src="assets/scripts/app.js"></script>
-	<script src="assets/scripts/event.js"></script>
+	<link rel="stylesheet" href="assets/styles/event.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header>
 		<nav>
+			<div class="burger-wrapper">
+				<button type="button" class="burger-menu" aria-label="Button burger menu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
 			<img src="assets/img/logo.png" alt="">
 			<ul>
 				<li><a href="index.html">Accueil</a></li>
@@ -33,25 +39,29 @@
 			<div class="content">
 				<div class="event-content">
 					<div class="event-column left-column">
-							<div class="event-img">
+						<div class="event-img">
 							</div>
 							<div class="event-article">
 								<p class="event-chapo"></p>
 								<div class="event-desc"></div>
-							</div>
+						</div>
+						<div id="mapid"></div>
 					</div>
 					<div class="event-column right-column">
-						<button type="button" class="followbutton" aria-label="button de follow">
-							<img src="assets/img/unfollow.svg" alt="Follow icon">
-							<span>Ajouter aux favoris</span>
-						</button>
+						<div class="button-container">
+						</div>
+						<div class="right-contain">
+							<div class="first-column"></div>
+							<div class="second-column"></div>
+						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>
-
-
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+	<script src="assets/scripts/ajax.js"></script>
+	<script src="assets/scripts/app.js"></script>
+	<script src="assets/scripts/event.js"></script>
 </body>
 </html>

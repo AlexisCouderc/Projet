@@ -1,20 +1,28 @@
 function createEventsCards(events, listName){
-	if(events.length > 0){
-		events.forEach(recordsEvent => {
-			const event = recordsEvent.fields
-			const date = new Date(event.date_start)
-			let chapo = event.lead_text
-			if (chapo.length > 100){
-				chapo = chapo.slice(0,100) + '... <b>Lire plus</b>'
-			}
+	events.forEach(recordsEvent => {
+		const event = recordsEvent.fields
+		const date = new Date(event.date_start)
 
-			let listClass = '.cards-list'
+		// Gestion de la longueur du titre
+		let title = event.title
+		if (title.length > 50){
+			title = title.slice(0,50) + '...'
+		}
 
-			if(listName != '' || listName === undefined){
-				listClass += listName
-			}
+		// Gestion de la longueur du chapo
+		let chapo = event.lead_text
+		if (chapo.length > 90){
+			chapo = chapo.slice(0,90) + '... <b>Lire plus</b>'
+		}
 
-			$(listClass).append(`
+		// Modification de la class de l'élément à remplir 
+		let listClass = '.cards-list'
+		if(listName != '' || listName === undefined){
+			listClass += listName
+		}
+
+		// Création de la card
+		$(listClass).append(`
 			<li id="${event.id}" class="event-card">
 				<a href="event.html?${recordsEvent.id}">
 					<div class="event-card-container-img">
@@ -22,42 +30,45 @@ function createEventsCards(events, listName){
 						</div>
 					</div>
 					<div class="event-content-card">
-						<h3 class="event-card-title">${event.title}</h3>
+						<h3 class="event-card-title">${title}</h3>
 						<p class="event-card-date">${formatDate(date)}</p>
 						<p class="event-card-chapo">${chapo}</p>
 					</div>
 				</a>
-			</li>`)
+			</li>
+		`)
 
-			if(isFav(recordsEvent)){
-				$("#" + event.id).append(`
-					<button type="button" class="followbutton" aria-label="button de follow">
-						<img src="assets/img/follow.svg" alt="Follow icon">
-					</button>
-				`)
-			} else {
-				$("#" + event.id).append(`
-					<button type="button" class="followbutton" aria-label="button de follow">
-						<img src="assets/img/unfollow.svg" alt="Follow icon">
-					</button>
-				`)
-			}
+		// Création des boutons en fonction de si ils sont en favoris ou non
+		if(isFav(recordsEvent)){
+			createButton(event.id, "follow")
+		} else {
+			createButton(event.id, "unfollow")
+		}
 
-			$("#" + event.id + " .event-card-img").css("background-image", "url(" + event.cover_url + ")")
+		$("#" + event.id + " .event-card-img").css("background-image", "url(" + event.cover_url + ")")
 
-			$("#" + event.id + " .followbutton").click(() => {
-				actionFav(recordsEvent)
-			})
+		// création d'un Event au click
+		$("#" + event.id + " .followbutton").click(() => {
+			actionFav(recordsEvent)
 		})
-	} else {
-		$('.content').append('<p class="empty">Il n\'y a aucun événement pour cette recherche </p>')
-	}
+	})
 }
 
+// Création du bouton follow 
+function createButton(eventId,srcFollow){
+	$("#" + eventId).append(`
+		<button type="button" class="followbutton" aria-label="button de follow">
+			<img src="assets/img/${srcFollow}.svg" alt="Follow icon">
+		</button>
+	`)
+}
+
+// Ajout d'un "0" devant l'élément si "n" n'a qu'un chiffre
 function pad(n) {
     return n<10 ? '0'+n : n;
 }
 
+// Formatage de la date reçu en "DD/MM/YYYY à HH:MM"
 function formatDate(date) {
 	const day = pad(date.getDate())
 	const month = pad(date.getMonth()+1)
@@ -67,6 +78,7 @@ function formatDate(date) {
 	return day + '/' + month + '/' + year + ' à ' + hour + ':' + min
 }
 
+// Ajout ou suppression d'un événement du localStorage
 function actionFav(event){
 	if(isFav(event)){
 		removeFav(event)
@@ -75,29 +87,44 @@ function actionFav(event){
 	 } 
 }
 
+// Vérifie si l'événement exist dans le localStorage
 function isFav(event){
 	return this.parseEvent().find(storEvent => storEvent.id === event.id)
 }
 
+// Ajout d'une donnée dans le localStorage
 function addFav(event) {
 	const eventStored = this.parseEvent()
 	eventStored.push(event)
+	// Mise à jour du localStorage
 	window.localStorage.setItem("favEvents", JSON.stringify(eventStored))
 	$('#' + event.fields.id +" img").attr('src', 'assets/img/follow.svg')
 }
 
+// Suppression d'une donnée dans le localStorage
 function removeFav(event) {
 	const eventStored = this.parseEvent()
 	const eventToRemove = eventStored.findIndex(storEvent => storEvent.id === event.id)
 	eventStored.splice(eventToRemove, 1)
+	// Mise à jour du localStorage	
 	window.localStorage.setItem("favEvents", JSON.stringify(eventStored))
 	$('#' + event.fields.id +" img").attr('src','assets/img/unfollow.svg')
 }
 
+// Récupération des données dans la localStorage
 function parseEvent() {
 	return JSON.parse(localStorage.getItem("favEvents")) || []
 }
 
+// Event au click pour l'animation du menu burger
+function burgerMenu(){
+	$(".burger-menu").click(() => {
+		$(".burger-menu").toggleClass("show")
+		$("nav ul").toggleClass("show")
+	})
+}
+
+// Création des éléments de la page événement avec une condition pour chaque élément voulu
 function pageEvent(recordsEvent){
 
 	const event = recordsEvent.fields
@@ -105,20 +132,36 @@ function pageEvent(recordsEvent){
 	if(event.title){ $('.event-title').append(`${event.title}`)}
 
 	// Left column
-	if(event.cover_url){$('.event-img').css("background-image", "url(" + event.cover_url + ")")}
+	if(event.cover_url){
+		$('.event-img').css("background-image", "url(" + event.cover_url + ")")
+		$('.banner-img').css("background-image", "url(" + event.cover_url + ")")
+	}
 	if(event.lead_text){$('.event-chapo').append(`${event.lead_text}`)}
 	if(event.description){$('.event-desc').append(`${event.description}`)}
+	
+	if(event.tags){
+		$('.left-column').append(`<h3>Tags :</h3><div class="event-tags"></div>`)
+		event.tags.forEach(tag => {
+			$('.event-tags').append(`<a href="eventList.html?${tag}">${tag}</a>`)
+		});
+	}
+	// Right column
+	$('.button-container').append(`
+		<button id="${event.id}" type="button" class="followbutton" aria-label="button de follow">
+			<img src="assets/img/unfollow.svg" alt="Follow icon">
+			<span>Ajouter aux favoris</span>
+		</button>
+	`)
 	if(event.date_description){
-		$('.right-column').append(`<h3>Dates et horaires :</h3>
+		$('.right-column .first-column').append(`<h3>Dates et horaires :</h3>
 			<p>
 				${event.date_description}
 			</p>`
 		)
 	}
 
-	// Right column
 	if(event.price_detail){
-		$('.right-column').append(`
+		$('.right-column .first-column').append(`
 			<h3>Prix :</h3>
 			<p >
 				${event.price_detail}
@@ -126,7 +169,7 @@ function pageEvent(recordsEvent){
 		)
 	}
 	if(event.address_city && event.address_name && event.address_street && event.address_zipcode){
-		$('.right-column').append(`
+		$('.right-column .first-column').append(`
 			<h3>Adresse :</h3>
 			<p>
 				${event.address_name}
@@ -138,7 +181,7 @@ function pageEvent(recordsEvent){
 		)
 	}
 	if(event.transport){
-		$('.right-column').append(`
+		$('.right-column .first-column').append(`
 			<h3>Adresse :</h3>
 			<p>
 				${event.transport}
@@ -147,7 +190,7 @@ function pageEvent(recordsEvent){
 	}
 
 	if(event.contact_facebook || event.contact_twitter || event.contact_mail || event.access_link || event.contact_mail || event.contact_phone) {
-		$('.right-column').append(`
+		$('.right-column .second-column').append(`
 			<h3>Informations :</h3>
 			<div class="info">
 			</div>
@@ -180,12 +223,28 @@ function pageEvent(recordsEvent){
 					
 	}
 
-	$(".followbutton").click(() => {actionFav(event)})
+	$(".followbutton").click(() => {actionFav(recordsEvent)})
 
 	if(isFav(recordsEvent)){
 		$(".followbutton img").attr('src', 'assets/img/follow.svg')
 	} else {
 		$(".followbutton img").attr('src', 'assets/img/unfollow.svg')
 	}
+}
 
+// création de la map avec pour paramètre la latitude, la longitude et l'adresse de l'événement
+function createMap(lat, lon, address){
+	const map = L.map('mapid').setView([lat, lon], 13)
+
+	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		maxZoom: 18,
+		id: 'mapbox/streets-v11',
+		accessToken: 'pk.eyJ1IjoiYWNvdWRlcmMiLCJhIjoiY2sza2NzZXIyMDFyaDNtdDVvOTJzZTVwNyJ9.FJohGaekQLCfCeRfJyKwfw'
+	}).addTo(map)
+	
+	const marker = L.marker([lat, lon]).addTo(map)
+
+	marker.bindPopup(address).openPopup();
+	
 }
